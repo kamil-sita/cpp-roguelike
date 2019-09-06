@@ -113,8 +113,8 @@ void EnemyGO::draw(sf::RenderWindow& window) {
     } else {
         auto text = resourceLoader->load("../resources/dead.png");
         sf::Sprite s;
-        s.setScale(1.0f * PLAYER_AND_ENEMY_SIZE/s.getTexture()->getSize().x * getScaling(), 1.0f * PLAYER_AND_ENEMY_SIZE/s.getTexture()->getSize().y * getScaling());
         s.setTexture(*text);
+        s.setScale(1.0f * PLAYER_AND_ENEMY_SIZE/s.getTexture()->getSize().x * getScaling(), 1.0f * PLAYER_AND_ENEMY_SIZE/s.getTexture()->getSize().y * getScaling());
         s.setPosition(getTopLeftSprite());
         sf::Uint8 alpha = enemyType == EnemyType::ghost ? 96 : 255;
         s.setColor(sf::Color(

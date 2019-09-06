@@ -42,7 +42,7 @@ set(SOURCE_FILES
 
         stages/MenuStage.cpp stages/MenuStage.h
         stages/GameStage.cpp stages/GameStage.h
-        )
+        particles/ParticleGO.h engine/ParticleSystem.cpp engine/ParticleSystem.h particles/SimpleParticle.cpp particles/SimpleParticle.h particles/BubbleParticle.cpp particles/BubbleParticle.h)
 
 if (WIN32)  #windows
     #localizing sfml files on windows - assumes they are in folder below:

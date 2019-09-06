@@ -9,7 +9,7 @@
 
 class GameObject;
 class StageManager;
-
+class ParticleSystem;
 /**
  * Quasi interface for various stage. Stage is basic container for GameObjects that updates them and draws them.
  */
@@ -18,6 +18,7 @@ class Stage {
     std::vector<std::shared_ptr<GameObject>> gameObjects;
     StageManager& stageManager;
     ResourceLoader& resourceLoader;
+    std::shared_ptr<ParticleSystem> particleSystem;
     double deltaTime = 1;
 protected:
     /**
@@ -29,9 +30,7 @@ protected:
     void updateAllObjects();
 
 public:
-    Stage(ResourceLoader& resourceLoader, StageManager& stageManager) : resourceLoader(resourceLoader), stageManager(stageManager) {
-
-    };
+    Stage(ResourceLoader& resourceLoader, StageManager& stageManager);;
 
     void draw(sf::RenderWindow& window);
     void update(double deltaTime);
@@ -42,6 +41,7 @@ public:
 
     std::vector<std::shared_ptr<GameObject>> getGameObjects();
 
+    std::shared_ptr<ParticleSystem> getParticleSystem() const;
 
 };
 #endif

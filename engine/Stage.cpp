@@ -1,14 +1,21 @@
 #include "Stage.h"
 #include "GameObject.h"
+#include "ParticleSystem.h"
+
+Stage::Stage(ResourceLoader& resourceLoader, StageManager& stageManager) : resourceLoader(resourceLoader), stageManager(stageManager) {
+    particleSystem = std::make_shared<ParticleSystem>();
+}
 
 void Stage::draw(sf::RenderWindow& window) {
     for (const auto &object : gameObjects) {
         object->renderCall(window);
     }
+    particleSystem->render(window);
 }
 
 void Stage::update(double deltaTime) {
     this->deltaTime = deltaTime;
+    particleSystem->update(*this);
     updateScene();
 }
 
@@ -42,4 +49,9 @@ void Stage::updateAllObjects() {
         gameObject->update(*this);
     }
 }
+
+std::shared_ptr<ParticleSystem> Stage::getParticleSystem() const {
+    return particleSystem;
+}
+
 

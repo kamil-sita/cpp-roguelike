@@ -11,7 +11,7 @@
 
 Window::Window():
         inputs(this),
-        window(sf::VideoMode(WIDTH, HEIGHT), name, sf::Style::Fullscreen, sf::ContextSettings(0, 0, 2)),
+        window(sf::VideoMode(WIDTH, HEIGHT), name, sf::Style::Default, sf::ContextSettings(0, 0, 2)),
         stageManager(resourceLoader, inputs) {
 
     window.setFramerateLimit(TARGET_FRAMERATE);

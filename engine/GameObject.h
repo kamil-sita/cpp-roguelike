@@ -5,6 +5,8 @@
 #include "ResourceLoader.h"
 #include "Stage.h"
 
+class Stage;
+class Inputs;
 ///basic actor
 class GameObject {
 protected:
@@ -38,7 +40,6 @@ protected:
     sf::Vector2<int> getNewTilePosition(sf::Vector2<double> coord);
 
 public:
-
     GameObject(ResourceLoader *resourceLoader);
 
     bool intersects(GameObject& gameObject1);

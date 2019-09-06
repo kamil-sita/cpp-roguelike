@@ -69,7 +69,7 @@ private:
 
     std::shared_ptr<sf::Texture> generateShadow(const TileType& shadowType, const sf::Color& color, std::shared_ptr<sf::Texture>& sLayer,
                                                 const std::shared_ptr<sf::Shader>& shader, int diffX, bool invert);
-
+    void addToxicParticles();
 protected:
     void draw(sf::RenderWindow& window) override;
 

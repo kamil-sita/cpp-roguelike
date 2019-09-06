@@ -6,6 +6,8 @@
 #include <math.h>
 #include "enemy/EnemiesGO.h"
 #include "enemy/EnemyFactory.h"
+#include "../engine/ParticleSystem.h"
+#include "../particles/BubbleParticle.h"
 
 const int width = 1600;
 const int height = 800;
@@ -286,4 +288,27 @@ void LevelGO::generateNew() {
 
 void LevelGO::update(Stage& stage) {
     iteration += stage.delta();
+    addToxicParticles();
+}
+
+void LevelGO::addToxicParticles() {
+    int x = 0;
+    int y = VERTICAL_RENDER_DIFFERENCE;
+
+    for (int j = 0; j < LVL_HEIGHT; j++) {
+        for (int i = 0; i < LVL_WIDTH; i++) {
+
+            if (level->getTileOn(i, j) == TileType::slowingFloor) {
+                if (getRandom(0, 1) < 0.7) {
+                    double placeX = x + getRandom(0, TILE_SIZE);
+                    double placeY = y + getRandom(0, TILE_SIZE);
+                    stage->getParticleSystem()->add(std::make_shared<BubbleParticle>(resourceLoader, placeX, placeY));
+                }
+            }
+
+            x += TILE_SIZE;
+        }
+        x = 0;
+        y += TILE_SIZE;
+    }
 };
