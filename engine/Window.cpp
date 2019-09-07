@@ -11,15 +11,17 @@
 
 Window::Window():
         inputs(this),
-        window(sf::VideoMode(WIDTH, HEIGHT), name, sf::Style::Default, sf::ContextSettings(0, 0, 2)),
-        stageManager(resourceLoader, inputs) {
+        window(sf::VideoMode(WIDTH, HEIGHT), name, sf::Style::Default, sf::ContextSettings(0, 0, 2))
+         {
+
+    stageManager = new StageManager(resourceLoader, inputs);
 
     window.setFramerateLimit(TARGET_FRAMERATE);
     window.requestFocus();
 
-    std::shared_ptr<MenuStage> menuStage = std::make_shared<MenuStage>(resourceLoader, stageManager);
-    stageManager.setMenuStage(menuStage);
-    stageManager.setStage(menuStage);
+    std::shared_ptr<MenuStage> menuStage = std::make_shared<MenuStage>(resourceLoader, *stageManager);
+    stageManager->setMenuStage(menuStage);
+    stageManager->setStage(menuStage);
     window.setIcon(128, 128, resourceLoader.load("../resources/logo.png")->copyToImage().getPixelsPtr());
 
     window.setMouseCursorVisible(false);
@@ -33,10 +35,10 @@ ApplicationStatus Window::run() {
     while (window.isOpen()) {
         //game loop
         double deltaTime = deltaTimeClock.restart().asSeconds() * TARGET_FRAMERATE;
-        stageManager.update(deltaTime);
+        stageManager->update(deltaTime);
 
         //check if game is scheduled for closure/restart
-        auto status = pollKeyboardAndWindowStatus(stageManager);
+        auto status = pollKeyboardAndWindowStatus(*stageManager);
         if (status != ApplicationStatus::none) {
             window.close();
             return status;
@@ -44,11 +46,11 @@ ApplicationStatus Window::run() {
 
         //draw game
         window.clear(sf::Color::Black);
-        stageManager.draw(window);
+        stageManager->draw(window);
         window.display();
 
 
-        calculateFpsAndAverageDeltaTime(fpsClock, stageManager);
+        calculateFpsAndAverageDeltaTime(fpsClock, *stageManager);
     }
 
     return ApplicationStatus::endApplication;
@@ -96,4 +98,8 @@ ApplicationStatus Window::pollKeyboardAndWindowStatus(StageManager& stageManager
         }
     }
     return stageManager.getApplicationStatus();
+}
+
+Window::~Window() {
+    delete stageManager;
 }

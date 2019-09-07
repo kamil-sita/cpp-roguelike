@@ -16,8 +16,8 @@ class Inputs {
 private:
     Window* window;
 
-    volatile bool pressed[sf::Keyboard::KeyCount];
-    volatile bool typed[sf::Keyboard::KeyCount];
+    bool pressed[sf::Keyboard::KeyCount];
+    bool typed[sf::Keyboard::KeyCount];
 
     void clear();
 
@@ -27,7 +27,6 @@ public:
     }
 
     void clearTyped();
-    void laterUpdate();
 
     bool isTyped(sf::Keyboard::Key key);
     bool isPressed(sf::Keyboard::Key key);

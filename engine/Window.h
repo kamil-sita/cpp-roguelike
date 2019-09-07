@@ -11,7 +11,7 @@ class Window {
     sf::RenderWindow window;
     ResourceLoader resourceLoader;
     Inputs inputs;
-    StageManager stageManager;
+    StageManager* stageManager;
 
     std::string name = "Roguelike";
     int renderedFrameCount = 0;
@@ -23,6 +23,7 @@ class Window {
 public:
     Window();
     ApplicationStatus run();
+    ~Window();
 };
 
 

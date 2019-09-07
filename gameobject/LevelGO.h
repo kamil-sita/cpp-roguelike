@@ -47,6 +47,9 @@ private:
 
     double iteration = 0;
 
+    std::shared_ptr<sf::Shader> blurShader;
+    bool shaderInitialized = false;
+
     inline double semiRandomForTile(int x, int y) {
         return randomNumbersForTiles[y * level->width() + x];
     }
@@ -63,8 +66,6 @@ private:
                     std::shared_ptr<sf::Shader> shader = nullptr, int diffX = 0, bool invert = false);
     void drawOnEdgeOf(sf::RenderWindow& window, TileType top, TileType mid, std::shared_ptr<sf::Texture> text);
 
-    std::shared_ptr<sf::Shader> blurShader;
-    bool shaderInitialized = false;
     std::shared_ptr<sf::Shader> getBlurShader();
 
     std::shared_ptr<sf::Texture> generateShadow(const TileType& shadowType, const sf::Color& color, std::shared_ptr<sf::Texture>& sLayer,

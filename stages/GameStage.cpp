@@ -1,4 +1,5 @@
 #include "GameStage.h"
+#include "../engine/ParticleSystem.h"
 
 
 GameStage::GameStage(ResourceLoader& resourceLoader, StageManager& stageManager) :
@@ -105,6 +106,7 @@ void GameStage::changeLevelIfAllEnemiesDead() {
             if (clock.getElapsedTime().asSeconds() > COOLDOWN_BETWEEN_ROUNDS) {
                 cooldownDuringRounds = false;
                 level->generateNew();
+                getParticleSystem()->clear();
                 player->setLevel(level->getLevel());
                 if (player->getMaxHealthPoints() == player->getHealthPoints()) {
                     player->increaseDamage(2);

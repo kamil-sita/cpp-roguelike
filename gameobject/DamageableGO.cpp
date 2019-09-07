@@ -79,6 +79,7 @@ void DamageableGO::dealDamage(double val) {
     healthPoints -= val;
     if (healthPoints <= 0) {
         setAlive(false);
+        healthPoints = 0;
     }
 }
 
@@ -89,3 +90,5 @@ const bool DamageableGO::isAlive()  {
 void DamageableGO::setAlive(bool val) {
     alive = val;
 }
+
+

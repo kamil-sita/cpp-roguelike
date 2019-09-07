@@ -13,6 +13,7 @@ public:
     void update(Stage& stage);
     void add(std::shared_ptr<ParticleGO> particle);
     void render(sf::RenderWindow& window);
+    void clear();
 };
 
 

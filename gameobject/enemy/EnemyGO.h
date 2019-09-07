@@ -25,7 +25,10 @@ class EnemyGO : public DamageableGO {
     double slowdownSpeedModifier; //speed slowdown
     std::weak_ptr<PlayerGO> player;
 
+    sf::Vector2<float> graphicalSpritePosition;
+
     void generatePath();
+    void addDamageParticles(const Stage& stage);
 protected:
     void draw(sf::RenderWindow& window) override;
 
@@ -41,6 +44,7 @@ public:
     void calcTargetPosition();
     void bulletHitSlowdown();
     void setPlayer(const std::weak_ptr<PlayerGO>& player);
+
 };
 
 

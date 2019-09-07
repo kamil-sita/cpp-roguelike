@@ -20,3 +20,7 @@ void ParticleSystem::render(sf::RenderWindow& window) {
 void ParticleSystem::add(std::shared_ptr<ParticleGO> particle) {
     particles.push_back(particle);
 }
+
+void ParticleSystem::clear() {
+    particles.clear();
+}

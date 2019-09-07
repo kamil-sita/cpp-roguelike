@@ -3,6 +3,8 @@
 #include "../../Random.h"
 #include <SFML/Graphics/Sprite.hpp>
 #include <cmath>
+#include "../../engine/ParticleSystem.h"
+#include "../../particles/SmokeParticle.h"
 
 EnemyGO::EnemyGO(ResourceLoader *resourceLoader1, int maxHealthPoints1, EnemyType enemyType) : DamageableGO(resourceLoader1, maxHealthPoints1), enemyType(enemyType) {
 
@@ -33,6 +35,8 @@ EnemyGO::EnemyGO(ResourceLoader *resourceLoader1, int maxHealthPoints1, EnemyTyp
 
 void EnemyGO::update(Stage &stage) {
     double deltaTime = stage.delta();
+
+    addDamageParticles(stage);
 
     if (!alive) {
         return;
@@ -80,6 +84,43 @@ void EnemyGO::update(Stage &stage) {
     hitByBulletSpeedModifier = (15 * hitByBulletSpeedModifier + 1) / 16.0;
 }
 
+void EnemyGO::addDamageParticles(const Stage& stage) {
+
+    const double Y_VARIETY = 6;
+    const double X_VARIETY = 6;
+
+    if (enemyType == EnemyType::ghost) return;
+
+    if (!isAlive()) {
+        if (getRandom(0, 1) > 0.6) {
+            double x = xPos + getRandom(-X_VARIETY, X_VARIETY) + 6 * sin(animationIteration * 0.05);
+            double y = yPos - height * 0.75 + getRandom(-Y_VARIETY, Y_VARIETY);
+
+            stage.getParticleSystem()->add(std::make_shared<SmokeParticle>(resourceLoader, x, y, 0.3));
+        }
+    } else {
+
+        if (healthPoints < maxHealthPoints) {
+            double percentage = (healthPoints) / maxHealthPoints;
+            if (getRandom(0, 1.04) > percentage && getRandom(0, 1) > 0.6) {
+
+                double x = graphicalSpritePosition.x + width / 2 + getRandom(-X_VARIETY, X_VARIETY);
+                double y = graphicalSpritePosition.y + height / 2 + getRandom(-Y_VARIETY, Y_VARIETY);
+
+                sf::Vector2<int> vec = getDirectionVector(movingDir);
+                x += -width / 2 * vec.x;
+                y += -height / 2 * vec.y;
+
+                stage.getParticleSystem()->add(
+                        std::make_shared<SmokeParticle>(resourceLoader, x, y, healthPoints / maxHealthPoints)
+                                );
+
+            }
+        }
+    }
+
+}
+
 void EnemyGO::draw(sf::RenderWindow& window) {
     if (alive) {
         if (enemyType == EnemyType::tank) {
@@ -98,6 +139,7 @@ void EnemyGO::draw(sf::RenderWindow& window) {
         } else {
             pos.y += 3.5 * sin(0.12 * animationIteration);
         }
+        graphicalSpritePosition = pos;
         s.setPosition(pos);
 
         sf::Uint8 blackout = slowdownSpeedModifier * 255;
@@ -111,6 +153,8 @@ void EnemyGO::draw(sf::RenderWindow& window) {
 
         window.draw(s);
     } else {
+        animationIteration += 1;
+
         auto text = resourceLoader->load("../resources/dead.png");
         sf::Sprite s;
         s.setTexture(*text);

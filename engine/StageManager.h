@@ -4,7 +4,6 @@
 #include "Stage.h"
 #include "ResourceLoader.h"
 #include "Inputs.h"
-#include <memory>
 #include "ApplicationStatus.h"
 
 class MenuStage;
