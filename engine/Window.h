@@ -11,11 +11,9 @@ class Window {
     sf::RenderWindow window;
     ResourceLoader resourceLoader;
     Inputs inputs;
-    StageManager* stageManager;
+    StageManager stageManager;
 
-    std::string name = "Roguelike";
     int renderedFrameCount = 0;
-
 
     ApplicationStatus pollKeyboardAndWindowStatus(StageManager& stageManager);
     void calculateFpsAndAverageDeltaTime(sf::Clock& fpsClock, StageManager& stageManager);
@@ -23,7 +21,6 @@ class Window {
 public:
     Window();
     ApplicationStatus run();
-    ~Window();
 };
 
 

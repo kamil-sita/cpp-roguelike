@@ -7,6 +7,8 @@ const int WIDTH = 1600;
 
 const int TARGET_FRAMERATE = 60;
 
+const std::string WINDOW_NAME = "Roguelike";
+
 //tile render difference due to the bar appearing above the level
 const int VERTICAL_RENDER_DIFFERENCE = 50;
 

@@ -9,20 +9,16 @@
 #include <shared_mutex>
 #include <condition_variable>
 
-class Window;
-
 ///this class is responsible for containing key strokes from keyboard
 class Inputs {
 private:
-    Window* window;
-
     bool pressed[sf::Keyboard::KeyCount];
     bool typed[sf::Keyboard::KeyCount];
 
     void clear();
 
 public:
-    Inputs(Window* window) : window(window) {
+    Inputs() {
         clear();
     }
 
