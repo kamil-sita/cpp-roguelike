@@ -5,7 +5,7 @@ Basic roguelike written in C++ using SFML.
 
 ## Gameplay:
 
-Player's objective is to defeat as many levels as they can. Each new level starts after enemies from previous level were defeated. 
+Player's objective is to beat as many levels as they can. Each new level starts after enemies from previous level are defeated.
 
 Enemies receive damage by either bullet damage or by touching toxic water. Both actions also slow them.
 
@@ -17,7 +17,7 @@ enter/space - select option in menu
 
 escape - pause game
 
-shift - dash with shield
+shift - dash + shield
 
 space - shoot
 
